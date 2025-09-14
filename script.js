@@ -300,7 +300,7 @@ function getBotResponse(message) {
         }
         return trads;
     } else {
-        return "Oups 🤔 je ne connais pas encore cette expression. Veux-tu que je l’ajoute ?";
+        return "Oups 🤔 je ne connais pas encore cette expression. Laisses-moi un commentaire juste en dessous";
     }
 }
 
