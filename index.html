@@ -1,26 +1,33 @@
-
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Chat Shimaore</title>
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="app">
-        <
+  <!-- Autre contenu du site ici -->
 
-
-            
-        <div class="chat-box" id="chat-box">
-            <div class="bubble bot">Bonjour ! Je suis ton assistant pour apprendre le shimaoré ✨</div>
-        </div>
-        <div class="input-area">
-            <input type="text" id="user-input" placeholder="Écris un mot ou une phrase..." onkeydown="if(event.key === 'Enter'){sendMessage()}">
-            <button onclick="sendMessage()">Envoyer</button>
-            <button onclick="clearChat()">🗑️</button>
-        </div>
+  <!-- Chatbot positionné en bas à droite -->
+  <div id="chatbot-wrapper">
+    <div id="chat-container">
+      <h1>Apprendre la langue Mahoraise</h1>
+      <div id="chat-box"></div>
+      <div id="loading-indicator">
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+      </div>
+      <input type="text" id="user-input" placeholder="Écris ici..." />
+      <div class="button-container">
+        <button onclick="sendMessage()">Envoyer</button>
+        <button onclick="clearChat()">🗑️</button>
+      </div>
     </div>
-    <script src="script.js"></script>
+  </div>
+
+  <script src="script.js"></script>
 </body>
 </html>
