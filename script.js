@@ -351,3 +351,29 @@ function getBotResponse(normalized) {
 function clearChat() {
     document.getElementById('chat-box').innerHTML = '';
 }
+
+// Fonction mailto pour le commentaire
+function sendCommentByMail() {
+    const commentInput = document.getElementById("comment-input").value.trim();
+    const userEmail = document.getElementById("user-email").value.trim();
+    const status = document.getElementById("comment-status");
+
+    if (commentInput === "") {
+        status.textContent = "Veuillez écrire un commentaire.";
+        status.style.color = "red";
+        return;
+    }
+
+    // À remplacer par ton email de réception :
+    const destination = "ton-adresse@email.fr";
+    let subject = "Commentaire utilisateur";
+    let body = encodeURIComponent(commentInput);
+
+    if (userEmail) {
+        body += "%0D%0A%0D%0AEmail de l'utilisateur : " + encodeURIComponent(userEmail);
+    }
+
+    window.location.href = `mailto:${destination}?subject=${subject}&body=${body}`;
+    status.textContent = "La fenêtre d'email s'est ouverte, merci !";
+    status.style.color = "#4CAF50";
+}
