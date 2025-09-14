@@ -329,3 +329,25 @@ function sendMessage() {
         input.value = "";
     }
 }
+
+// Fonction pour normaliser le message (exemple simple, à adapter selon tes besoins)
+function normalizeMessage(message) {
+    // Ici, tu peux mettre en minuscules, enlever les accents, etc.
+    return message.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+}
+
+// Fonction pour obtenir la réponse du bot (exemple basique)
+function getBotResponse(normalized) {
+    // Tu peux remplacer ce qui suit par ta propre logique
+    if (normalized.includes("bonjour")) {
+        return "Mbote ! Comment puis-je t'aider ?";
+    } else if (normalized.includes("merci")) {
+        return "Avec plaisir !";
+    } else {
+        return "Je n'ai pas compris, peux-tu reformuler ?";
+    }
+}
+
+function clearChat() {
+    document.getElementById('chat-box').innerHTML = '';
+}
