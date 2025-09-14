@@ -33,7 +33,7 @@ h1 {
 }
 
 #chat-container {
-  background-color: rgba(255, 255, 255, 0.8);
+  background-color: rgba(255, 255, 255, 0.85);
   border-radius: 2vw;
   padding: 3vw 4vw;
   box-shadow: 0 8px 15px rgba(0,0,0,0.2);
@@ -160,10 +160,11 @@ button:hover {
   }
 }
 
-/* Mode portrait mobile et tablette */
-@media (max-width: 500px), (max-width: 800px) and (orientation: portrait) {
+/* Mode portrait stricte pour smartphone et tablette */
+@media (max-width: 500px), (orientation: portrait) and (max-width: 800px) {
   body {
     justify-content: flex-start;
+    min-height: 100vh;
   }
   .wrapper {
     padding: 5vw 2vw;
@@ -171,26 +172,26 @@ button:hover {
   }
   #chat-container {
     padding: 5vw 2vw;
-    border-radius: 4vw;
+    border-radius: 5vw;
     margin-bottom: 6vw;
     max-width: 100vw;
     box-sizing: border-box;
   }
   h1 {
-    font-size: 7vw;
-    margin-bottom: 5vw;
+    font-size: 9vw;
+    margin-bottom: 6vw;
   }
   #chat-box {
     padding: 2vw;
-    border-radius: 4vw;
-    font-size: 0.95em;
-    max-height: 28vh;
+    border-radius: 5vw;
+    font-size: 1em;
+    max-height: 35vh;
   }
   .bubble {
-    padding: 3vw 3vw;
-    border-radius: 4vw;
-    font-size: 0.95em;
-    max-width: 90%;
+    padding: 3vw 4vw;
+    border-radius: 5vw;
+    font-size: 1em;
+    max-width: 95%;
   }
   .button-container {
     gap: 3vw;
@@ -198,14 +199,14 @@ button:hover {
     align-items: stretch;
   }
   button {
-    padding: 3vw 0;
-    border-radius: 2vw;
+    padding: 4vw 0;
+    border-radius: 3vw;
     font-size: 1em;
     width: 100%;
   }
   input[type="text"] {
     padding: 2vw;
-    border-radius: 2vw;
+    border-radius: 3vw;
     font-size: 1em;
   }
 }
