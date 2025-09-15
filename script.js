@@ -268,7 +268,7 @@ function getBotResponse(message) {
         }
         return trads;
     } else {
-        return "Oups 🤔 je ne connais pas encore cette expression. Laisses-moi un commentaire juste en dessous";
+        return "Oups 🤔 je ne connais pas encore cette expression !";
     }
 }
 
@@ -300,12 +300,4 @@ function sendMessage() {
 // Effacer chat
 function clearChat() {
     document.getElementById('chat-box').innerHTML = '';
-}
-
-function sendComment() {
-  const comment = document.getElementById('user-comment').value.trim();
-  if (!comment) return;
-
-  alert("Merci pour ton commentaire !"); // ici tu peux remplacer par un envoi réel vers un serveur
-  document.getElementById('user-comment').value = '';
 }
