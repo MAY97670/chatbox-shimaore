@@ -159,3 +159,42 @@ body {
 #comment-container button:hover {
   background-color: #218838;
 }
+
+function sendComment() {
+  try {
+    const comment = document.getElementById("user-comment").value.trim();
+    if (!comment) return;
+
+    // Affichage dans le chat
+    const chatBox = document.getElementById("chat-box");
+    const commentBubble = document.createElement("div");
+    commentBubble.className = "bubble user";
+    commentBubble.style.background = "#28a745"; // couleur spéciale commentaire
+    commentBubble.textContent = comment;
+    chatBox.appendChild(commentBubble);
+    chatBox.scrollTop = chatBox.scrollHeight;
+
+    // URL du script Google Apps
+    const scriptURL = "https://script.google.com/macros/s/AKfycbzh6zDVopGcuoTZNJ0PzOwkjiCIBCaNFs_oioYKAj8NUQ3izxC9xNuAA4YawFH2P35qqQ/exec";
+
+    // Envoi au script
+    fetch(scriptURL, {
+      method: "POST",
+      headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      body: new URLSearchParams({ comment: comment })
+    })
+    .then(resp => resp.text()) // ← on prend en texte (plus sûr que .json)
+    .then(data => {
+      console.log("Réponse serveur :", data);
+      alert("✅ Ton commentaire a bien été envoyé !");
+    })
+    .catch(err => {
+      console.error("Erreur envoi commentaire:", err);
+      alert("⚠️ Impossible d’envoyer le commentaire. Réessaie plus tard.");
+    });
+
+    // Réinitialise la case
+    document.getElementById("user-comment").value = '';
+  } catch (e) {
+    console.error("Erreur dans sendComment :", e);
+  }
