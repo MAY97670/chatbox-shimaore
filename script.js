@@ -323,7 +323,7 @@ function sendComment() {
   if (!comment) return;
 
   // Remplace TON_FORM_LINK par le lien prérempli que tu as copié
-  const formLink = "https://docs.google.com/forms/d/e/TON_FORM_ID/viewform?usp=pp_url&entry.1234567890=";
+  const formLink = "https://docs.google.com/forms/d/e/1FAIpQLScTHroDUBlVcUzh6tORY3lnialdTkTLiZKW99NMw5mOodqeBw/viewform?usp=pp_url&entry.332921937=test";
 
   // Encode le commentaire pour l’URL et ouvre le formulaire dans un nouvel onglet
   const url = formLink + encodeURIComponent(comment);
