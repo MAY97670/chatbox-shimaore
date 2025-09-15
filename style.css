@@ -23,7 +23,7 @@
   margin: 0;
 }
 
-/* Place le chatbot au centre, flottant */
+/* Place le chatbot en bas centre, fixé */
 #chatbot-wrapper {
   position: fixed;
   bottom: 30px;
