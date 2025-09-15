@@ -218,41 +218,17 @@ const abrevToFull = {
     "slt": "salut",
     "drt": "droit",
     "gch": "gauche",
-    "ds": "dans",
-    "ca": "ça",
-    "qq": "quelques",
-    "tjs": "toujours",
-    "b1": "bien",
-    "km": "kilomètre",
-    "h": "heure",
-    "min": "minute",
-    "sec": "seconde",
     "cc": "salut",
     "biz": "bisous"
 };
 
 // Conversion chiffres
 const chiffresEnMots = {
-    "0": "zéro",
-    "1": "un",
-    "2": "deux",
-    "3": "trois",
-    "4": "quatre",
-    "5": "cinq",
-    "6": "six",
-    "7": "sept",
-    "8": "huit",
-    "9": "neuf",
-    "10": "dix",
-    "20": "vingt",
-    "30": "trente",
-    "40": "quarante",
-    "50": "cinquante",
-    "60": "soixante",
-    "70": "soixante-dix",
-    "80": "quatre-vingts",
-    "90": "quatre-vingt-dix",
-    "100": "cent",
+    "0": "zéro", "1": "un", "2": "deux", "3": "trois", "4": "quatre",
+    "5": "cinq", "6": "six", "7": "sept", "8": "huit", "9": "neuf",
+    "10": "dix", "20": "vingt", "30": "trente", "40": "quarante",
+    "50": "cinquante", "60": "soixante", "70": "soixante-dix",
+    "80": "quatre-vingts", "90": "quatre-vingt-dix", "100": "cent",
     "1000": "mille"
 };
 
@@ -262,28 +238,21 @@ function convertirNombre(nombre) {
     } else {
         let dizaines = Math.floor(nombre / 10) * 10;
         let unités = nombre % 10;
-        if (unités === 0) {
-            return chiffresEnMots[dizaines];
-        } else {
-            return (chiffresEnMots[dizaines] || dizaines) + "-" + (chiffresEnMots[unités] || unités);
-        }
+        return (chiffresEnMots[dizaines] || dizaines) + "-" + (chiffresEnMots[unités] || unités);
     }
 }
 
 // === FONCTIONS ===
 
-// Normalisation message
+// Normalisation
 function normalizeMessage(message) {
     return message
         .toLowerCase()
-        .replace(/[.,!?;:]/g, "") // Supprime ponctuation
+        .normalize("NFD").replace(/[\u0300-\u036f]/g, "") // Enlève accents
+        .replace(/[.,!?;:]/g, "") // Enlève ponctuation
         .split(" ")
         .map(word => {
-            // Remplacer chiffres
-            if (/^\d+$/.test(word)) {
-                return convertirNombre(parseInt(word));
-            }
-            // Remplacer abréviations
+            if (/^\d+$/.test(word)) return convertirNombre(parseInt(word));
             return abrevToFull[word] || word;
         })
         .join(" ")
@@ -295,7 +264,6 @@ function getBotResponse(message) {
     if (traductions[message]) {
         let trads = traductions[message];
         if (Array.isArray(trads)) {
-            // Choisir aléatoirement si plusieurs traductions
             return trads[Math.floor(Math.random() * trads.length)];
         }
         return trads;
@@ -316,7 +284,6 @@ function sendMessage() {
         userBubble.textContent = message;
         chatBox.appendChild(userBubble);
 
-        // Normaliser avant recherche
         const normalized = normalizeMessage(message);
         const botResponse = getBotResponse(normalized);
 
@@ -330,29 +297,12 @@ function sendMessage() {
     }
 }
 
-// Fonction pour normaliser le message (exemple simple, à adapter selon tes besoins)
-function normalizeMessage(message) {
-    // Ici, tu peux mettre en minuscules, enlever les accents, etc.
-    return message.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
-}
-
-// Fonction pour obtenir la réponse du bot (exemple basique)
-function getBotResponse(normalized) {
-    // Tu peux remplacer ce qui suit par ta propre logique
-    if (normalized.includes("bonjour")) {
-        return "Mbote ! Comment puis-je t'aider ?";
-    } else if (normalized.includes("merci")) {
-        return "Avec plaisir !";
-    } else {
-        return "Je n'ai pas compris, peux-tu reformuler ?";
-    }
-}
-
+// Effacer chat
 function clearChat() {
     document.getElementById('chat-box').innerHTML = '';
 }
 
-// Fonction mailto pour le commentaire
+// Envoyer commentaire par email
 function sendCommentByMail() {
     const commentInput = document.getElementById("comment-input").value.trim();
     const userEmail = document.getElementById("user-email").value.trim();
@@ -364,7 +314,6 @@ function sendCommentByMail() {
         return;
     }
 
-    // À remplacer par ton email de réception :
     const destination = "langue.mahoraise@outlook.fr";
     let subject = "Commentaire utilisateur";
     let body = encodeURIComponent(commentInput);
