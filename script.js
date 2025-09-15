@@ -244,68 +244,76 @@ function convertirNombre(nombre) {
 
 // === FONCTIONS ===
 
-// Normalisation
+// === NORMALISATION ===
 function normalizeMessage(message) {
     return message
         .toLowerCase()
-        .normalize("NFD").replace(/[\u0300-\u036f]/g, "") // Enlève accents
-        .replace(/[.,!?;:]/g, "") // Enlève ponctuation
+        .normalize("NFD").replace(/[\u0300-\u036f]/g, "")
+        .replace(/[.,!?;:]/g, "")
         .split(" ")
-        .map(word => {
-            if (/^\d+$/.test(word)) return convertirNombre(parseInt(word));
-            return abrevToFull[word] || word;
-        })
+        .map(word => /^\d+$/.test(word) ? convertirNombre(parseInt(word)) : (abrevToFull[word] || word))
         .join(" ")
         .trim();
 }
 
-// Réponse du bot
+// === RÉPONSE DU BOT ===
 function getBotResponse(message) {
     if (traductions[message]) {
         let trads = traductions[message];
-        if (Array.isArray(trads)) {
-            return trads[Math.floor(Math.random() * trads.length)];
-        }
-        return trads;
-    } else {
-        return "Oups 🤔 je ne connais pas encore cette expression. Laisses-moi un commentaire juste en dessous";
+        return Array.isArray(trads) ? trads[Math.floor(Math.random() * trads.length)] : trads;
     }
+    return "Oups 🤔 je ne connais pas encore cette expression. Laisse-moi un commentaire juste en dessous !";
 }
 
-// Gestion envoi message
+// === ENVOI MESSAGE ===
 function sendMessage() {
     const input = document.getElementById("user-input");
     const chatBox = document.getElementById("chat-box");
+    const loading = document.getElementById("loading-indicator");
     let message = input.value.trim();
+    if (!message) return;
 
-    if (message !== "") {
-        const userBubble = document.createElement("div");
-        userBubble.className = "bubble user";
-        userBubble.textContent = message;
-        chatBox.appendChild(userBubble);
+    // Affiche message utilisateur
+    const userBubble = document.createElement("div");
+    userBubble.className = "bubble user";
+    userBubble.textContent = message;
+    chatBox.appendChild(userBubble);
+    chatBox.scrollTop = chatBox.scrollHeight;
 
-        const normalized = normalizeMessage(message);
-        const botResponse = getBotResponse(normalized);
+    // Affiche indicateur de chargement
+    loading.style.display = "flex";
 
+    setTimeout(() => {
+        loading.style.display = "none";
         const botBubble = document.createElement("div");
         botBubble.className = "bubble bot";
-        botBubble.textContent = botResponse;
+        botBubble.textContent = getBotResponse(normalizeMessage(message));
         chatBox.appendChild(botBubble);
-
         chatBox.scrollTop = chatBox.scrollHeight;
-        input.value = "";
-    }
+    }, 500); // délai de 0,5s pour simuler réflexion
+
+    input.value = "";
 }
 
-// Effacer chat
+// === EFFACER CHAT ===
 function clearChat() {
     document.getElementById('chat-box').innerHTML = '';
 }
 
+// === ENVOI COMMENTAIRE ===
 function sendComment() {
-  const comment = document.getElementById('user-comment').value.trim();
-  if (!comment) return;
+    const comment = document.getElementById('user-comment').value.trim();
+    if (!comment) return;
 
-  alert("Merci pour ton commentaire !"); // ici tu peux remplacer par un envoi réel vers un serveur
-  document.getElementById('user-comment').value = '';
+    // Affiche le commentaire dans le chat sous forme de bulle
+    const chatBox = document.getElementById("chat-box");
+    const commentBubble = document.createElement("div");
+    commentBubble.className = "bubble user";
+    commentBubble.style.background = "#28a745"; // couleur différente pour les commentaires
+    commentBubble.textContent = comment;
+    chatBox.appendChild(commentBubble);
+    chatBox.scrollTop = chatBox.scrollHeight;
+
+    alert("Merci pour ton commentaire !");
+    document.getElementById('user-comment').value = '';
 }
