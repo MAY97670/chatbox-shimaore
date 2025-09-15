@@ -233,18 +233,13 @@ const chiffresEnMots = {
 };
 
 function convertirNombre(nombre) {
-    if (chiffresEnMots[nombre]) {
-        return chiffresEnMots[nombre];
-    } else {
-        let dizaines = Math.floor(nombre / 10) * 10;
-        let unités = nombre % 10;
-        return (chiffresEnMots[dizaines] || dizaines) + "-" + (chiffresEnMots[unités] || unités);
-    }
+    if (chiffresEnMots[nombre]) return chiffresEnMots[nombre];
+    let dizaines = Math.floor(nombre / 10) * 10;
+    let unités = nombre % 10;
+    return (chiffresEnMots[dizaines] || dizaines) + "-" + (chiffresEnMots[unités] || unités);
 }
 
-// === FONCTIONS ===
-
-// === NORMALISATION ===
+// === NORMALISATION MESSAGE ===
 function normalizeMessage(message) {
     return message
         .toLowerCase()
@@ -256,7 +251,7 @@ function normalizeMessage(message) {
         .trim();
 }
 
-// === RÉPONSE DU BOT ===
+// === RÉPONSE BOT ===
 function getBotResponse(message) {
     if (traductions[message]) {
         let trads = traductions[message];
@@ -290,7 +285,7 @@ function sendMessage() {
         botBubble.textContent = getBotResponse(normalizeMessage(message));
         chatBox.appendChild(botBubble);
         chatBox.scrollTop = chatBox.scrollHeight;
-    }, 500); // délai de 0,5s pour simuler réflexion
+    }, 500);
 
     input.value = "";
 }
@@ -309,25 +304,17 @@ function sendComment() {
     const chatBox = document.getElementById("chat-box");
     const commentBubble = document.createElement("div");
     commentBubble.className = "bubble user";
-    commentBubble.style.background = "#28a745"; // couleur différente pour les commentaires
+    commentBubble.style.background = "#28a745";
     commentBubble.textContent = comment;
     chatBox.appendChild(commentBubble);
     chatBox.scrollTop = chatBox.scrollHeight;
 
+    // Envoi vers Google Forms
+    const formUrl = "https://script.google.com/macros/s/AKfycbzh6zDVopGcuoTZNJ0PzOwkjiCIBCaNFs_oioYKAj8NUQ3izxC9xNuAA4YawFH2P35qqQ/exec";
+    fetch(formUrl + "?comment=" + encodeURIComponent(comment))
+        .then(response => console.log("Commentaire envoyé"))
+        .catch(error => console.error("Erreur :", error));
+
     alert("Merci pour ton commentaire !");
     document.getElementById('user-comment').value = '';
-}
-
-function sendComment() {
-  const comment = document.getElementById('user-comment').value.trim();
-  if (!comment) return;
-
-  // Remplace TON_FORM_LINK par le lien prérempli que tu as copié
-  const formLink = "https://docs.google.com/forms/d/e/1FAIpQLScTHroDUBlVcUzh6tORY3lnialdTkTLiZKW99NMw5mOodqeBw/viewform?usp=pp_url&entry.332921937=test";
-
-  // Encode le commentaire pour l’URL et ouvre le formulaire dans un nouvel onglet
-  const url = formLink + encodeURIComponent(comment);
-  window.open(url, "_blank");
-
-  document.getElementById('user-comment').value = '';
 }
