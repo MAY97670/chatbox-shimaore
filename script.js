@@ -297,8 +297,36 @@ function clearChat() {
 
 // === ENVOI COMMENTAIRE ===
 function sendComment() {
-    const comment = document.getElementById('user-comment').value.trim();
-    if (!comment) return;
+  const comment = document.getElementById("user-comment").value.trim();
+  if (!comment) return;
+
+  const chatBox = document.getElementById("chat-box");
+  const commentBubble = document.createElement("div");
+  commentBubble.className = "bubble user";
+  commentBubble.style.background = "#28a745";
+  commentBubble.textContent = comment;
+  chatBox.appendChild(commentBubble);
+  chatBox.scrollTop = chatBox.scrollHeight;
+
+  // URL de ton Apps Script déployé
+  const scriptURL = "https://script.google.com/macros/s/AKfycbzh6zDVopGcuoTZNJ0PzOwkjiCIBCaNFs_oioYKAj8NUQ3izxC9xNuAA4YawFH2P35qqQ/exec";
+
+  fetch(scriptURL, {
+    method: "POST",
+    body: new URLSearchParams({ "comment": comment })
+  })
+  .then(response => response.json())
+  .then(data => {
+    if(data.result === "success") {
+      console.log("Commentaire enregistré !");
+    } else {
+      console.error("Erreur :", data.error);
+    }
+  })
+  .catch(err => console.error("Erreur fetch :", err));
+
+  document.getElementById("user-comment").value = '';
+}
 
     // Affiche le commentaire dans le chat sous forme de bulle
     const chatBox = document.getElementById("chat-box");
