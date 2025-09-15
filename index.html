@@ -10,28 +10,20 @@
       margin: 0;
       font-family: 'Baloo 2', cursive;
       background: linear-gradient(to bottom, #e6f2ff, #ffffff);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
     }
 
     /* Chatbot wrapper */
-   #chatbot-wrapper {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 90%;           /* prend 90% de la largeur de l’écran sur mobile */
-  max-width: 500px;     /* ne dépasse pas 500px sur grand écran */
-  z-index: 9999;
-  padding: 10px;        /* un petit padding pour respirer sur mobile */
-  box-sizing: border-box;
-  <div id="comment-container">
-  <h2>Laisser un commentaire</h2>
-  <textarea id="user-comment" placeholder="Écris ton commentaire ici..." rows="4"></textarea>
-  <button onclick="sendComment()">Envoyer le commentaire</button>
-</div>
-     
-}
+    #chatbot-wrapper {
+      width: 90%;
+      max-width: 500px;
+      padding: 10px;
+      box-sizing: border-box;
+    }
 
-    /* Container */
     #chat-container {
       background: white;
       border-radius: 20px;
@@ -101,7 +93,6 @@
       background: #0056b3;
     }
 
-    /* Indicateur de chargement */
     #loading-indicator {
       display: none;
       justify-content: flex-start;
@@ -125,6 +116,36 @@
       0%, 80%, 100% { transform: scale(0); }
       40% { transform: scale(1); }
     }
+
+    /* Commentaire */
+    #comment-container {
+      margin-top: 20px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    #user-comment {
+      padding: 10px;
+      border-radius: 10px;
+      border: 1px solid #ccc;
+      resize: vertical;
+      font-family: 'Baloo 2', cursive;
+      margin-bottom: 10px;
+    }
+
+    #comment-container button {
+      padding: 10px;
+      border: none;
+      border-radius: 10px;
+      background-color: #28a745;
+      color: white;
+      cursor: pointer;
+      font-size: 14px;
+    }
+
+    #comment-container button:hover {
+      background-color: #218838;
+    }
   </style>
 </head>
 <body>
@@ -144,8 +165,24 @@
         <button onclick="clearChat()">🗑️</button>
       </div>
     </div>
+
+    <!-- Commentaire -->
+    <div id="comment-container">
+      <h2>Laisser un commentaire</h2>
+      <textarea id="user-comment" placeholder="Écris ton commentaire ici..." rows="4"></textarea>
+      <button onclick="sendComment()">Envoyer le commentaire</button>
+    </div>
   </div>
 
   <script src="script.js"></script>
+  <script>
+    function sendComment() {
+      const comment = document.getElementById('user-comment').value;
+      if(comment.trim() !== "") {
+        alert("Merci pour ton commentaire : " + comment);
+        document.getElementById('user-comment').value = "";
+      }
+    }
+  </script>
 </body>
 </html>
