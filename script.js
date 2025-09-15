@@ -365,7 +365,7 @@ function sendCommentByMail() {
     }
 
     // À remplacer par ton email de réception :
-    const destination = "ton-adresse@email.fr";
+    const destination = "langue.mahoraise@outlook.fr";
     let subject = "Commentaire utilisateur";
     let body = encodeURIComponent(commentInput);
 
