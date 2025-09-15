@@ -245,6 +245,14 @@ button:hover {
   background-color: #4CAF50;
 }
 
+        function sendComment() {
+  const comment = document.getElementById('user-comment').value.trim();
+  if (!comment) return;
+
+  alert("Merci pour ton commentaire !"); // ici tu peux remplacer par un envoi réel vers un serveur
+  document.getElementById('user-comment').value = '';
+}
+
   </script>
 </body>
 </html>
