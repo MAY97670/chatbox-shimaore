@@ -8,31 +8,41 @@
   <style>
     * {
       margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+  padding: 0;
+  box-sizing: border-box;
+}
 
-  body {
+body {
+  font-family: 'Baloo 2', cursive;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   background-image: url('Paysage mayotte.jpg');
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
   background-attachment: fixed;
-  font-family: 'Baloo 2', cursive;
-  height: 100vh;
-  margin: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
 }
 
-/* Centrer le chatbot au milieu */
+/* Wrapper général */
 .wrapper {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  gap: 20px;
 }
+
+/* Titres */
+h1, #comment-container h2 {
+  text-align: center;
+  color: #4CAF50;
+  text-shadow: 1px 1px 3px #fff;
+}
+
+h1 { font-size: 28px; }
+#comment-container h2 { font-size: 22px; }
 
 /* Chat container */
 #chat-container {
@@ -46,16 +56,7 @@
   padding: 20px;
   display: flex;
   flex-direction: column;
-  align-items: stretch;
-}
-
-/* Titre stylisé */
-h1 {
-  font-size: 28px;
-  text-align: center;
-  color: #4CAF50;
-  margin-bottom: 15px;
-  text-shadow: 1px 1px 4px #fff;
+  gap: 10px;
 }
 
 /* Chatbox */
@@ -67,10 +68,9 @@ h1 {
   background: #f6f9fa;
   border-radius: 15px;
   border: 1px solid #e0e0e0;
-  margin-bottom: 10px;
 }
 
-/* Bulle utilisateur/bot */
+/* Bulles */
 .bubble {
   padding: 10px 16px;
   border-radius: 18px 18px 5px 18px;
@@ -83,16 +83,15 @@ h1 {
   background-color: #4CAF50;
   color: white;
   align-self: flex-end;
-  margin-left: auto;
 }
 
 .bot {
   background-color: #87CEEB;
   color: black;
   align-self: flex-start;
-  margin-right: auto;
 }
 
+/* Indicateur de chargement */
 #loading-indicator {
   display: none;
   gap: 5px;
@@ -117,91 +116,38 @@ h1 {
   40% { transform: scale(1); }
 }
 
-input[type="text"] {
+/* Input et boutons */
+input[type="text"], #comment-container textarea {
   width: 100%;
   padding: 10px;
   border: 1px solid #87CEEB;
   border-radius: 7px;
-  background-color: white;
-  margin-bottom: 10px;
   font-size: 16px;
+  background-color: white;
 }
 
-.button-container {
+.button-container, #comment-container button {
   display: flex;
   gap: 10px;
 }
 
-button {
+button, #comment-container button {
   padding: 10px 20px;
-  background-color: #87CEEB;
   border: none;
   border-radius: 7px;
   cursor: pointer;
-  color: #fff;
+  color: white;
   font-weight: bold;
+  background-color: #87CEEB;
   transition: background 0.2s;
 }
 
-button:hover {
+button:hover, #comment-container button:hover {
   background-color: #4CAF50;
 }
-  </style>
-</head>
-<body>
-  <div class="wrapper">
-    <h1>Apprendre la langue Mahoraise</h1>
 
-    <div id="chat-container">
-      <div id="chat-box"></div>
-
-      <div id="loading-indicator">
-        <div class="dot"></div>
-        <div class="dot"></div>
-        <div class="dot"></div>
-      </div>
-
-      <input type="text" id="user-input" placeholder="Écris ici..." />
-
-      <div class="button-container">
-        <button onclick="sendMessage()">Envoyer</button>
-        <button onclick="clearChat()">🗑️</button>
-      </div>
-    </div>
-  </div>
-
-  <script>
-    function sendMessage() {
-      const input = document.getElementById('user-input');
-      const message = input.value.trim();
-      if (!message) return;
-
-      appendMessage('user', message);
-      input.value = '';
-
-      document.getElementById('loading-indicator').style.display = 'flex';
-
-      setTimeout(() => {
-        document.getElementById('loading-indicator').style.display = 'none';
-        appendMessage('bot', "Merci pour ton message !");
-      }, 1500);
-    }
-
-    function appendMessage(sender, text) {
-      const chatBox = document.getElementById('chat-box');
-      const bubble = document.createElement('div');
-      bubble.className = `bubble ${sender}`;
-      bubble.innerText = text;
-      chatBox.appendChild(bubble);
-      chatBox.scrollTop = chatBox.scrollHeight;
-    }
-
-    function clearChat() {
-      document.getElementById('chat-box').innerHTML = '';
-    }
-
-        #comment-container {
-  margin-top: 30px;
+/* Commentaire */
+#comment-container {
   width: 350px;
   max-width: 90vw;
   background-color: rgba(255,255,255,0.95);
@@ -213,46 +159,3 @@ button:hover {
   flex-direction: column;
   gap: 10px;
 }
-
-#comment-container h2 {
-  text-align: center;
-  color: #4CAF50;
-  text-shadow: 1px 1px 3px #fff;
-  font-size: 22px;
-}
-
-#comment-container textarea {
-  width: 100%;
-  padding: 10px;
-  border-radius: 7px;
-  border: 1px solid #87CEEB;
-  resize: none;
-  font-size: 16px;
-}
-
-#comment-container button {
-  padding: 10px 20px;
-  background-color: #87CEEB;
-  border: none;
-  border-radius: 7px;
-  cursor: pointer;
-  color: white;
-  font-weight: bold;
-  transition: background 0.2s;
-}
-
-#comment-container button:hover {
-  background-color: #4CAF50;
-}
-
-        function sendComment() {
-  const comment = document.getElementById('user-comment').value.trim();
-  if (!comment) return;
-
-  alert("Merci pour ton commentaire !"); // ici tu peux remplacer par un envoi réel vers un serveur
-  document.getElementById('user-comment').value = '';
-}
-
-  </script>
-</body>
-</html>
