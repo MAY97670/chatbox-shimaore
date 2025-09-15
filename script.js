@@ -302,27 +302,10 @@ function clearChat() {
     document.getElementById('chat-box').innerHTML = '';
 }
 
-// Envoyer commentaire par email
-function sendCommentByMail() {
-    const commentInput = document.getElementById("comment-input").value.trim();
-    const userEmail = document.getElementById("user-email").value.trim();
-    const status = document.getElementById("comment-status");
+function sendComment() {
+  const comment = document.getElementById('user-comment').value.trim();
+  if (!comment) return;
 
-    if (commentInput === "") {
-        status.textContent = "Veuillez écrire un commentaire.";
-        status.style.color = "red";
-        return;
-    }
-
-    const destination = "langue.mahoraise@outlook.fr";
-    let subject = "Commentaire utilisateur";
-    let body = encodeURIComponent(commentInput);
-
-    if (userEmail) {
-        body += "%0D%0A%0D%0AEmail de l'utilisateur : " + encodeURIComponent(userEmail);
-    }
-
-    window.location.href = `mailto:${destination}?subject=${subject}&body=${body}`;
-    status.textContent = "La fenêtre d'email s'est ouverte, merci !";
-    status.style.color = "#4CAF50";
+  alert("Merci pour ton commentaire !"); // ici tu peux remplacer par un envoi réel vers un serveur
+  document.getElementById('user-comment').value = '';
 }
