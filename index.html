@@ -13,15 +13,18 @@
     }
 
     /* Chatbot wrapper */
-    #chatbot-wrapper {
-      position: fixed;
-      bottom: 20px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 100%;
-      max-width: 500px;
-      z-index: 9999;
-    }
+   #chatbot-wrapper {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 90%;           /* prend 90% de la largeur de l’écran sur mobile */
+  max-width: 500px;     /* ne dépasse pas 500px sur grand écran */
+  z-index: 9999;
+  padding: 10px;        /* un petit padding pour respirer sur mobile */
+  box-sizing: border-box;
+}
+
 
     /* Container */
     #chat-container {
