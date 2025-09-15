@@ -199,6 +199,52 @@ button:hover {
     function clearChat() {
       document.getElementById('chat-box').innerHTML = '';
     }
+
+        #comment-container {
+  margin-top: 30px;
+  width: 350px;
+  max-width: 90vw;
+  background-color: rgba(255,255,255,0.95);
+  border-radius: 20px;
+  padding: 15px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+  border: 2px solid #87CEEB;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+#comment-container h2 {
+  text-align: center;
+  color: #4CAF50;
+  text-shadow: 1px 1px 3px #fff;
+  font-size: 22px;
+}
+
+#comment-container textarea {
+  width: 100%;
+  padding: 10px;
+  border-radius: 7px;
+  border: 1px solid #87CEEB;
+  resize: none;
+  font-size: 16px;
+}
+
+#comment-container button {
+  padding: 10px 20px;
+  background-color: #87CEEB;
+  border: none;
+  border-radius: 7px;
+  cursor: pointer;
+  color: white;
+  font-weight: bold;
+  transition: background 0.2s;
+}
+
+#comment-container button:hover {
+  background-color: #4CAF50;
+}
+
   </script>
 </body>
 </html>
