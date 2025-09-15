@@ -317,3 +317,17 @@ function sendComment() {
     alert("Merci pour ton commentaire !");
     document.getElementById('user-comment').value = '';
 }
+
+function sendComment() {
+  const comment = document.getElementById('user-comment').value.trim();
+  if (!comment) return;
+
+  // Remplace TON_FORM_LINK par le lien prérempli que tu as copié
+  const formLink = "https://docs.google.com/forms/d/e/TON_FORM_ID/viewform?usp=pp_url&entry.1234567890=";
+
+  // Encode le commentaire pour l’URL et ouvre le formulaire dans un nouvel onglet
+  const url = formLink + encodeURIComponent(comment);
+  window.open(url, "_blank");
+
+  document.getElementById('user-comment').value = '';
+}
