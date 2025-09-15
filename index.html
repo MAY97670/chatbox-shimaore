@@ -4,141 +4,45 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Chat Shimaore</title>
+
+  <!-- Police Baloo 2 -->
   <link href="https://fonts.googleapis.com/css2?family=Baloo+2&display=swap" rel="stylesheet">
-  <style>
-    body {
-      margin: 0;
-      font-family: 'Baloo 2', cursive;
-      background: linear-gradient(to bottom, #e6f2ff, #ffffff);
-    }
 
-    /* Chatbot wrapper */
-   #chatbot-wrapper {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 90%;           /* prend 90% de la largeur de l’écran sur mobile */
-  max-width: 500px;     /* ne dépasse pas 500px sur grand écran */
-  z-index: 9999;
-  padding: 10px;        /* un petit padding pour respirer sur mobile */
-  box-sizing: border-box;
-
-    /* Container */
-    #chat-container {
-      background: white;
-      border-radius: 20px;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.2);
-      overflow: hidden;
-      display: flex;
-      flex-direction: column;
-    }
-
-    #chat-box {
-      height: 280px;
-      overflow-y: auto;
-      padding: 15px;
-      display: flex;
-      flex-direction: column;
-    }
-
-    .bubble {
-      padding: 10px 14px;
-      margin: 6px 0;
-      border-radius: 15px;
-      max-width: 75%;
-      line-height: 1.4;
-      word-wrap: break-word;
-    }
-
-    .user {
-      background: linear-gradient(to right, #007bff, #3399ff);
-      color: white;
-      align-self: flex-end;
-      border-bottom-right-radius: 5px;
-    }
-
-    .bot {
-      background: #f1f1f1;
-      color: #333;
-      align-self: flex-start;
-      border-bottom-left-radius: 5px;
-    }
-
-    #user-input {
-      border: none;
-      border-top: 1px solid #ddd;
-      padding: 12px;
-      outline: none;
-      font-size: 14px;
-      width: calc(100% - 24px);
-    }
-
-    .button-container {
-      display: flex;
-      border-top: 1px solid #ddd;
-      background: #fafafa;
-    }
-
-    .button-container button {
-      flex: 1;
-      padding: 12px;
-      border: none;
-      background: #007bff;
-      color: white;
-      cursor: pointer;
-      font-size: 14px;
-    }
-
-    .button-container button:hover {
-      background: #0056b3;
-    }
-
-    /* Indicateur de chargement */
-    #loading-indicator {
-      display: none;
-      justify-content: flex-start;
-      margin: 5px 0;
-    }
-
-    .dot {
-      width: 8px;
-      height: 8px;
-      margin: 0 3px;
-      background-color: #007bff;
-      border-radius: 50%;
-      display: inline-block;
-      animation: bounce 1.4s infinite ease-in-out both;
-    }
-
-    .dot:nth-child(1) { animation-delay: -0.32s; }
-    .dot:nth-child(2) { animation-delay: -0.16s; }
-
-    @keyframes bounce {
-      0%, 80%, 100% { transform: scale(0); }
-      40% { transform: scale(1); }
-    }
-  </style>
+  <!-- CSS externe -->
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div id="chatbot-wrapper">
+  <div class="wrapper">
+    <h1>Apprendre la langue Mahoraise</h1>
+
     <div id="chat-container">
       <div id="chat-box">
         <div class="bubble bot">👋 Bienvenue sur Chat Shimaore ! Écris un mot en français et je te le traduis.</div>
       </div>
+
       <div id="loading-indicator">
         <div class="dot"></div>
         <div class="dot"></div>
         <div class="dot"></div>
       </div>
+
       <input type="text" id="user-input" placeholder="Écris ici..." />
+
       <div class="button-container">
         <button onclick="sendMessage()">Envoyer</button>
         <button onclick="clearChat()">🗑️</button>
       </div>
     </div>
+
+    <!-- Zone commentaire -->
+    <div id="comment-container">
+      <h2>Laisser un commentaire</h2>
+      <textarea rows="4" placeholder="Écris ton commentaire..."></textarea>
+      <button>Envoyer</button>
+    </div>
   </div>
 
+  <!-- Script du chatbot -->
   <script src="script.js"></script>
 </body>
 </html>
