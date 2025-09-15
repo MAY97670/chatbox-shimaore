@@ -346,3 +346,102 @@ function sendComment() {
     alert("Merci pour ton commentaire !");
     document.getElementById('user-comment').value = '';
 }
+unction convertirNombre(nombre) {
+  if (chiffresEnMots[nombre]) return chiffresEnMots[nombre];
+  let dizaines = Math.floor(nombre / 10) * 10;
+  let unités = nombre % 10;
+  return (chiffresEnMots[dizaines] || dizaines) 
+         + "-" + (chiffresEnMots[unités] || unités);
+}
+
+function normalizeMessage(message) {
+  return message.toLowerCase()
+    .normalize("NFD").replace(/[\u0300-\u036f]/g, "")
+    .replace(/[.,!?;:]/g, "")
+    .split(" ")
+    .map(word => /^\d+$/.test(word) 
+         ? convertirNombre(parseInt(word)) 
+         : (abrevToFull[word] || word))
+    .join(" ")
+    .trim();
+}
+
+function getBotResponse(message) {
+  if (traductions[message]) {
+    let trads = traductions[message];
+    return Array.isArray(trads) 
+           ? trads[Math.floor(Math.random() * trads.length)] 
+           : trads;
+  }
+  return "Oups 🤔 je ne connais pas encore cette expression. Laisse-moi un commentaire juste en dessous !";
+}
+
+function sendMessage() {
+  const input = document.getElementById("user-input");
+  const chatBox = document.getElementById("chat-box");
+  const loading = document.getElementById("loading-indicator");
+  let message = input.value.trim();
+  if (!message) return;
+
+  // Affiche le message utilisateur
+  const userBubble = document.createElement("div");
+  userBubble.className = "bubble user";
+  userBubble.textContent = message;
+  chatBox.appendChild(userBubble);
+  chatBox.scrollTop = chatBox.scrollHeight;
+
+  // Show loading
+  loading.style.display = "flex";
+
+  setTimeout(() => {
+    loading.style.display = "none";
+    // calculer réponse
+    const norm = normalizeMessage(message);
+    const botReply = getBotResponse(norm);
+
+    const botBubble = document.createElement("div");
+    botBubble.className = "bubble bot";
+    botBubble.textContent = botReply;
+    chatBox.appendChild(botBubble);
+    chatBox.scrollTop = chatBox.scrollHeight;
+  }, 500);
+
+  input.value = "";
+}
+
+function clearChat() {
+  const chatBox = document.getElementById("chat-box");
+  chatBox.innerHTML = "";
+}
+
+function sendComment() {
+  try {
+    const comment = document.getElementById("user-comment").value.trim();
+    if (!comment) return;
+
+    const chatBox = document.getElementById("chat-box");
+    const commentBubble = document.createElement("div");
+    commentBubble.className = "bubble user";
+    commentBubble.style.background = "#28a745";
+    commentBubble.textContent = comment;
+    chatBox.appendChild(commentBubble);
+    chatBox.scrollTop = chatBox.scrollHeight;
+
+    const scriptURL = "https://script.google.com/macros/s/AKfycbzh6zDVopGcuoTZNJ0PzOwkjiCIBCaNFs_oioYKAj8NUQ3izxC9xNuAA4YawFH2P35qqQ/exec";
+    fetch(scriptURL, {
+      method: "POST",
+      body: new URLSearchParams({ comment: comment })
+    })
+    .then(resp => resp.json())
+    .then(data => {
+      console.log("Commentaire enregistré", data);
+    })
+    .catch(err => {
+      console.error("Erreur envoi commentaire:", err);
+    });
+
+    document.getElementById("user-comment").value = '';
+  } catch (e) {
+    console.error("Erreur dans sendComment :", e);
+  }
+}
