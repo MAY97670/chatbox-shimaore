@@ -8,10 +8,15 @@
   <style>
 
       /* RESET */
-* {
+
+ body {
   margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+  font-family: 'Baloo 2', cursive;
+  background-image: url('Paysage mayotte.png'); /* Mets ici le vrai nom de ton image */
+  background-size: cover;        /* L’image remplit tout l’écran */
+  background-repeat: no-repeat;  /* Pas de répétition */
+  background-position: center;   /* Centrée */
+  background-attachment: fixed;  /* Fixée quand on scroll (optionnel) */
 }
 
 /* BODY AVEC FOND IMAGE */
